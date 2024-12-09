@@ -90,7 +90,7 @@ MinimumVersionString = function()
 	return string.format("%i.%i.%i", MinimumVersion[1], MinimumVersion[2], MinimumVersion[3])
 end
 
-- -----------------------------------------------------------------------
+-- -----------------------------------------------------------------------
 -- game types like "kickbox" and "lights" aren't supported in Simply Love, so we
 -- use this function to hardcode a list of game modes that are supported, and use it
 -- in ScreenInit overlay.lua to redirect players to ScreenSelectGame if necessary.

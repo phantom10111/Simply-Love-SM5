@@ -90,6 +90,7 @@ local permitted_profile_settings = {
 	ShowEXScore          = "boolean",
 	ShowFaPlusPane       = "boolean",
 	SmallerWhite     = "boolean",
+	SigmaGrindset        = "boolean",
 
 	HideEarlyDecentWayOffJudgments = "boolean",
 	HideEarlyDecentWayOffFlash     = "boolean",

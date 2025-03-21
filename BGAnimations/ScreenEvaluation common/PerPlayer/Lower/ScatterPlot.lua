@@ -12,6 +12,7 @@ local GraphHeight = args.GraphHeight
 local mods = SL[pn].ActiveModifiers
 
 local tenms = mods.SmallerWhite
+local SigmaGrindset = mods.SigmaGrindset
 local SplitWhites = mods.SplitWhites
 local magenta = color("#E928FF")
 
@@ -106,17 +107,20 @@ for t in ivalues(sequential_offsets) do
 		c = colors[TimingWindow]
 
 		if mods.ShowFaPlusWindow and mods.ShowFaPlusPane then
-			abs_offset = math.abs(Offset)
-			if tenms and SplitWhites then
-				if abs_offset < GetTimingWindow(1, "FA+",tenms) then
+			if tenms and not SigmaGrindset and SplitWhites then
+				abs_offset = math.abs(Offset)
+				if abs_offset < GetTimingWindow(1, "FA+", tenms) then
 					c = magenta
-				elseif abs_offset > GetTimingWindow(1, "FA+",tens) and abs_offset <= GetTimingWindow(1, "FA+") then
+				elseif abs_offset > GetTimingWindow(1, "FA+", tenms) and abs_offset <= GetTimingWindow(1, "FA+") then
 					c = SL.JudgmentColors["FA+"][1]
 				elseif abs_offset > GetTimingWindow(1, "FA+") and abs_offset <= GetTimingWindow(2, "FA+") then
 					c = SL.JudgmentColors["FA+"][2]
 				end
-			elseif abs_offset > GetTimingWindow(1, "FA+") and abs_offset <= GetTimingWindow(2, "FA+") then
-				c = SL.JudgmentColors["FA+"][2]
+			else
+				faPlusWindow = DetermineTimingWindow(Offset, "FA+", tenms, SigmaGrindset)
+				if faPlusWindow <= 4 then
+					c = SL.JudgmentColors["FA+"][faPlusWindow]
+				end
 			end
 		end
 
@@ -150,10 +154,13 @@ for t in ivalues(sequential_offsets) do
 
 			if mods.ShowFaPlusWindow and mods.ShowFaPlusPane then
 				abs_offset = math.abs(EarlyOffset)
-				if mods.SmallerWhite and abs_offset > GetTimingWindow(1, "FA+", true) and abs_offset <= GetTimingWindow(1, "FA+", false) then
+				if tenms and not SigmaGrindset and abs_offset > GetTimingWindow(1, "FA+", true) and abs_offset <= GetTimingWindow(1, "FA+", false) then
 					c = BlendColors(SL.JudgmentColors["FA+"][2], colors[1])
-				elseif abs_offset > GetTimingWindow(1, "FA+") and abs_offset <= GetTimingWindow(2, "FA+") then
-					c = SL.JudgmentColors["FA+"][2]
+				else
+					faPlusWindow = DetermineTimingWindow(EarlyOffset, "FA+", tenms, SigmaGrindset)
+					if faPlusWindow <= 4 then
+						c = SL.JudgmentColors["FA+"][faPlusWindow]
+					end
 				end
 			end
 

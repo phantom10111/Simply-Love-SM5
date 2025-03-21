@@ -65,7 +65,7 @@ if file_to_load == "None" then
 			if param.Player ~= player then return end
 
 			if ToEnumShortString(param.TapNoteScore) == "W1" and mods.ShowFaPlusWindow then
-				local is_W0 = IsW010Judgment(param, player) or (not mods.SmallerWhite and IsW0Judgment(param, player))
+				local is_W0 = IsW010Judgment(param, player) or (not (mods.SmallerWhite or mods.SigmaGrindset) and IsW0Judgment(param, player))
 				if not is_W0 and not IsAutoplay(player) then
 					frame = 1
 					
@@ -234,7 +234,7 @@ return Def.ActorFrame{
 		if sprite:GetNumStates() == 7 or sprite:GetNumStates() == 14 then
 			if tns == "W1" then
 				if mods.ShowFaPlusWindow then
-					local is_W0 = IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))
+					local is_W0 = IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and not mods.SigmaGrindset and IsW0Judgment(param, player))
 					-- If this W1 judgment fell outside of the FA+ window, show the white window
 					--
 					-- Treat Autoplay specially. The TNS might be out of the range, but

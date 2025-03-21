@@ -18,6 +18,9 @@ local valid_tns = {
 	W0 = true,
 	W010 = true,
 	W110 = true,
+	W1SG = true,
+	W2SG = true,
+	W3SG = true,
 
 	-- Actual TNS's
 	W1 = true,
@@ -43,6 +46,9 @@ return Def.Actor{
 			W010 = 0,
 			W1 = 0,
 			W110 = 0,
+			W1SG = 0,
+			W2SG = 0,
+			W3SG = 0,
 			W2 = 0,
 			W3 = 0,
 			W4 = 0,
@@ -95,6 +101,7 @@ return Def.Actor{
 					if not stats:GetFailed() then
 						storage.ex_counts.W0 = storage.ex_counts.W0 + 1
 						storage.ex_counts.W110 = storage.ex_counts.W110 + 1
+						storage.ex_counts.W1SG = storage.ex_counts.W1SG + 1
 						count_updated = true
 					end
 					storage.ex_counts.W0_total = storage.ex_counts.W0_total + 1
@@ -102,6 +109,7 @@ return Def.Actor{
 					if not stats:GetFailed() then
 						storage.ex_counts.W1 = storage.ex_counts.W1 + 1
 						storage.ex_counts.W110 = storage.ex_counts.W110 + 1
+						storage.ex_counts.W2SG = storage.ex_counts.W2SG + 1
 						count_updated = true
 					end
 				end
@@ -110,6 +118,11 @@ return Def.Actor{
 				if valid_tns[TNS] then
 					if not stats:GetFailed() then
 						storage.ex_counts[TNS] = storage.ex_counts[TNS] + 1
+
+						if TNS == "W2" or TNS == "W3" then
+							storage.ex_counts.W3SG = storage.ex_counts.W3SG + 1
+						end
+
 						count_updated = true
 					end
 				end

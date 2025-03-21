@@ -82,7 +82,7 @@ for i=1,#TapNoteScores.Types do
 			self:x( TapNoteScores.x[ToEnumShortString(controller)] )
 			self:y((i-1)*32 -24)
 			self:targetnumber(number)
-			if SL[pn].ActiveModifiers.SmallerWhite then
+			if SL[pn].ActiveModifiers.SmallerWhite or SL[pn].ActiveModifiers.SigmaGrindset then
 				self:playcommand("Marquee")
 			end
 		end,

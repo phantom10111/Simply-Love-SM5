@@ -189,10 +189,14 @@ local timing = {}
 for i = 1, #enabledTimingWindows do
     local wi = enabledTimingWindows[i]
     
-    if mods.ShowFaPlusWindow and wi == 1 then
-        -- Split the Fantastic window
-        timing[#timing + 1] = GetTimingWindow(1, "FA+", mods.SmallerWhite)
-        timing[#timing + 1] = GetTimingWindow(2, "FA+")
+    if mods.ShowFaPlusWindow and wi <= 3 then
+        if wi == 1 then
+            -- Split the Fantastic window
+            timing[#timing + 1] = GetTimingWindow(1, "FA+", mods.SmallerWhite, mods.SigmaGrindset)
+            timing[#timing + 1] = GetTimingWindow(2, "FA+", mods.SmallerWhite, mods.SigmaGrindset)
+        else
+            timing[#timing + 1] = GetTimingWindow(wi + 1, "FA+", mods.SmallerWhite, mods.SigmaGrindset)
+        end
     else
         timing[#timing + 1] = GetTimingWindow(wi)
     end 

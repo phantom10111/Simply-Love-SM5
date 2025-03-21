@@ -183,9 +183,9 @@ for index, window in ipairs(TNS.Types) do
 				end,
 			}
 			
-			if index == 1 and SL[pn].ActiveModifiers.SmallerWhite and ShowFaPlusWindow then
+			if (index == 1 and SL[pn].ActiveModifiers.SmallerWhite) or (index <= 4 and SL[pn].ActiveModifiers.SigmaGrindset) and ShowFaPlusWindow then
 				af[#af+1] = LoadFont(ThemePrefs.Get("ThemeFont") .. " Normal")..{
-					Text="(10ms)",
+					Text=(index == 1 and "(10ms)" or ("(%s)"):format(THEME:GetString("SLPlayerOptions", "SigmaGrindset")),
 					InitCommand=function(self)
 						self:zoom(0.6):maxwidth(72)
 						self:halign( PlayerNumber:Reverse()[player] )

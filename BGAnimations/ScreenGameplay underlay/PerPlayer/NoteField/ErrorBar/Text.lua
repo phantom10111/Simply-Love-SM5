@@ -9,18 +9,14 @@ local hideEarlyJudgment = mods.HideEarlyDecentWayOffJudgments and true or false
 local threshold = nil
 for i = 1, NumJudgmentsAvailable() do
     if mods.TimingWindows[i] then
-        if i == 1 and mods.ShowFaPlusWindow then
-            threshold = GetTimingWindow(1, "FA+", mods.SmallerWhite)
-        else
-            threshold = GetTimingWindow(i)
-        end
+        threshold = GetTimingWindow(i, mods.ShowFaPlusWindow and "FA+" or nil, mods.SmallerWhite, mods.SigmaGrindset)
         break
     end
 end
 
 local W1 = SL.Preferences["FA+"].TimingWindowSecondsW1 + SL.Preferences.ITG.TimingWindowAdd
 
-local SplitWhites = mods.SmallerWhite and mods.SplitWhites and mods.ShowFaPlusWindow
+local SplitWhites = mods.SmallerWhite and not mods.SigmaGrindset and mods.SplitWhites and mods.ShowFaPlusWindow
 
 local function DisplayText(self, params)
     local score = ToEnumShortString(params.TapNoteScore)

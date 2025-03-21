@@ -124,13 +124,18 @@ local windows = {
 for i = 1, #enabledTimingWindows do
     local wi = enabledTimingWindows[i]
     
-    if mods.ShowFaPlusWindow and wi == 1 then
-        -- Split the Fantastic window
-        windows.timing[#windows.timing + 1] = GetTimingWindow(1, "FA+", mods.SmallerWhite)
-        windows.color[#windows.color + 1] = SL.JudgmentColors["FA+"][1]
+    if mods.ShowFaPlusWindow and wi <= 3 then
+        if wi == 1 then
+            -- Split the Fantastic window
+            windows.timing[#windows.timing + 1] = GetTimingWindow(1, "FA+", mods.SmallerWhite, mods.SigmaGrindset)
+            windows.color[#windows.color + 1] = SL.JudgmentColors["FA+"][1]
 
-        windows.timing[#windows.timing + 1] = GetTimingWindow(2, "FA+")
-        windows.color[#windows.color + 1] = SL.JudgmentColors["FA+"][2]
+            windows.timing[#windows.timing + 1] = GetTimingWindow(2, "FA+", mods.SmallerWhite, mods.SigmaGrindset)
+            windows.color[#windows.color + 1] = SL.JudgmentColors["FA+"][2]
+        else
+            windows.timing[#windows.timing + 1] = GetTimingWindow(wi + 1, "FA+", mods.SmallerWhite, mods.SigmaGrindset)
+            windows.color[#windows.color + 1] = SL.JudgmentColors["FA+"][wi + 1]
+        end
     else
         windows.timing[#windows.timing + 1] = GetTimingWindow(wi)
         windows.color[#windows.color + 1] = SL.JudgmentColors[SL.Global.GameMode][wi]

@@ -40,11 +40,15 @@ end
 -- -----------------------------------------------------------------------
 -- get timing window in milliseconds
 
-GetTimingWindow = function(n, mode, tenms)
+GetTimingWindow = function(n, mode, tenms, sigmagrindset)
 	local prefs = SL.Preferences[mode or SL.Global.GameMode]
 	local scale = PREFSMAN:GetPreference("TimingWindowScale")
-	if mode == "FA+" and tenms and n == 1 then
-		return 0.0085 * scale + prefs.TimingWindowAdd
+	if mode == "FA+" and (tenms or sigmagrindset) then
+		if n == 1 then
+			return 0.0085 * scale + prefs.TimingWindowAdd
+		elseif sigmagrindset and n <= 4 then
+			return prefs["TimingWindowSecondsW"..(n - 1)] * scale + prefs.TimingWindowAdd
+		end
 	end
 	return prefs["TimingWindowSecondsW"..n] * scale + prefs.TimingWindowAdd
 end
@@ -53,9 +57,9 @@ end
 -- determines which timing_window an offset value (number) belongs to
 -- used by the judgment scatter plot and offset histogram in ScreenEvaluation
 
-DetermineTimingWindow = function(offset)
+DetermineTimingWindow = function(offset, mode, tenms, sigmagrindset)
 	for i=1,NumJudgmentsAvailable() do
-		if math.abs(offset) <= GetTimingWindow(i) then
+		if math.abs(offset) <= GetTimingWindow(i, mods, tenms, sigmagrindset) then
 			return i
 		end
 	end
